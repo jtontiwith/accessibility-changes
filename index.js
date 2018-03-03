@@ -20,31 +20,31 @@ const STORE = {
   scorecard: 0,
   questions: [
     { title: 'Thiel’s point is that…',
-    url: '<iframe width="560" height="315" src="https://www.youtube.com/embed/MGVVRnM50yY?rel=0&amp;start=2504&end=2554" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+    url: '<iframe width="560" height="315" title="Thiel Video" src="https://www.youtube.com/embed/MGVVRnM50yY?rel=0&amp;start=2504&end=2554" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
     answers: ['Pies taste good', 'Representative Democracy is always gridlocked', 'Representative Democracy becomes gridlocked without growth', 'Innovation is not always good'],
     correctAnswer: 2
   },
 
   {title: 'Socrates thought that…',
-   url: '<iframe width="560" height="315" src="https://www.youtube.com/embed/S24FxdvfOko?rel=0&amp;start=750&end=858" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+   url: '<iframe width="560" height="315" title="Socrates Video" src="https://www.youtube.com/embed/S24FxdvfOko?rel=0&amp;start=750&end=858" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
    answers: ['A good idea about how to live your life could spontaneously occur without too much thinking', 'Ceramics are fun', 'There’s a method for proofing ideas', 'The truth lies in a statement that seems impossible to disprove'],
    correctAnswer: 3 
   },
 
   { title: 'Elons’s point is that…',
-    url: '<iframe width="560" height="315" src="https://www.youtube.com/embed/jOzk6pCYV98?rel=0&amp;start=405&end=445" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+    url: '<iframe width="560" height="315" title="Elon Video" src="https://www.youtube.com/embed/jOzk6pCYV98?rel=0&amp;start=405&end=445" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
     answers: ['You can create new carbon from nothing', 'The earth can resist anything human do to it', 'There is a surface carbon cycle you cannot continually add to without consequence', 'People are dumb'],
     correctAnswer: 2
   },
 
   {title: 'Cal is making the point that…',
-   url: '<iframe width="560" height="315" src="https://www.youtube.com/embed/qwOdU02SE0w?rel=0&amp;start=1893&end=1966" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+   url: '<iframe width="560" height="315" title="Cal Video" src="https://www.youtube.com/embed/qwOdU02SE0w?rel=0&amp;start=1893&end=1966" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
    answers: ['You should become a yoga instructor', 'Career capital is important', 'You can’t switch industries or jobs', 'Leaving all your career capital on the table to do something new will set you back'],
    correctAnswer: 3 
   },
 
   {title: 'Peterson is saying that…',
-   url: '<iframe width="560" height="315" src="https://www.youtube.com/embed/8hTSK1iDcvQ?rel=0&amp;start=282&end=304" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+   url: '<iframe width="560" height="315" title="Peterson Video" src="https://www.youtube.com/embed/8hTSK1iDcvQ?rel=0&amp;start=282&end=304" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
    answers: ['Unmapped territory is a problem', 'You should articulate a pathway through things that bother you', 'Chaos is the dominant force in nature', 'Things fall apart'],
    correctAnswer: 1 
   }
@@ -147,33 +147,37 @@ What's happening above here with .map? 
 //injecting the data from store into html strings
 function generateQuizElement(question, questionIndex) {
   return `
-    <div class="question-container row" data-item-index="${questionIndex}">
-        <div class="col-md-6">
-          <div class="video-container">${question.url}</div>
+    <fieldset role="radiogroup">
+      <div class="question-container row" data-item-index="${questionIndex}">
+          <div class="col-md-6">
+            <legend role="radiogroup" >
+              <div class="video-container">${question.url}</div>
+            </legend>
+          </div>
+          <div class="col-md-6">
+            <p class="question-counter">You are on question ${questionIndex + 1} of ${STORE.questions.length}.</p>
+            <p>${question.title}</p>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="ansChoice0" name="radio" value="0">
+              <label class="form-check-label" for="ansChoice0">${question.answers[0]}
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="ansChoice1" name="radio" value="1">
+              <label class="form-check-label" for="ansChoice1">${question.answers[1]}</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="ansChoice2" name="radio" value="2">
+              <label class="form-check-label" for="ansChoice2">${question.answers[2]}</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="ansChoice3" name="radio" value="3">
+              <label class="form-check-label" for="ansChoice3">${question.answers[3]}</label>
+            </div>
+            <button type="submit" class="btn btn-primary" disabled="disabled">Submit</button>
+          </div>
         </div>
-        <div class="col-md-6">
-          <p class="question-counter">You are on question ${questionIndex + 1} of ${STORE.questions.length}.</p>
-          <p>${question.title}</p>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="ansChoice" name="radio" value="0">
-            <label class="form-check-label" for="ansChoice">${question.answers[0]}
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="ansChoice" name="radio" value="1">
-            <label class="form-check-label" for="ansChoice">${question.answers[1]}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="ansChoice" name="radio" value="2">
-            <label class="form-check-label" for="ansChoice">${question.answers[2]}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="ansChoice" name="radio" value="3">
-            <label class="form-check-label" for="ansChoice">${question.answers[3]}</label>
-          </div>
-          <button type="submit" class="btn btn-primary" disabled="disabled">Submit</button>
-        </div>
-      </div>`;
+      </fieldset>`;
 }
 
 
